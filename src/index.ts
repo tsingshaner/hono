@@ -1,19 +1,45 @@
-/**
- * 这是一个示例包，用于演示如何使用 TSDoc 注释来描述包的信息。
- *
- * @remarks
- * 这个包包含一些基本的数学运算函数。
- *
- * @example
- * 下面是如何使用这个包的示例：
- *
- * ```typescript
- * import { add } from 'my-package';
- *
- * const result = add(2, 3);
- * console.log(result); // 输出: 5
- * ```
- *
- * @packageDocumentation
- */
-export { add } from './core'
+import { Hono } from 'hono'
+import { createRemoteJWKSet, jwtVerify } from 'jose'
+
+import { initInfrastructure } from './infrastructure'
+import { auth } from './infrastructure/auth'
+import { getConfig } from './infrastructure/config'
+import { sessionMiddleware } from './middlewares/auth'
+
+import type { AuthEnv } from './middlewares/auth'
+
+await initInfrastructure()
+
+const config = await getConfig()
+const jwks = createRemoteJWKSet(new URL('/api/auth/jwks', config.baseURL))
+
+const app = new Hono<AuthEnv>()
+  .use('*', sessionMiddleware)
+  .on(['POST', 'GET'], '/api/auth/*', (c) => {
+    return auth.handler(c.req.raw)
+  })
+  .get('/', (c) => {
+    return c.json({})
+  })
+  .get('/api/me', async (c) => {
+    const authorization = c.req.header('authorization')
+    const token = authorization?.startsWith('Bearer ') ? authorization.slice(7) : undefined
+
+    if (!token) {
+      return c.json({ error: 'missing bearer token' }, 401)
+    }
+
+    try {
+      const { payload } = await jwtVerify(token, jwks, {
+        audience: config.baseURL,
+        issuer: config.baseURL
+      })
+
+      return c.json({ payload })
+    } catch {
+      return c.json({ error: 'invalid token' }, 401)
+    }
+  })
+
+export default app
+export type AppType = typeof app

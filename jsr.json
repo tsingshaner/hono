@@ -1,10 +1,10 @@
 {
   "$schema": "https://jsr.io/schema/config-file.v1.json",
-  "name": "@qingshaner/xxx",
-  "version": "0.0.0",
+  "exclude": ["src/**/*.test.ts"],
   "exports": "./src/index.ts",
+  "name": "@qingshaner/xxx",
   "publish": {
     "include": ["LICENSE", "README.md", "src/**/*.ts"]
   },
-  "exclude": ["src/**/*.test.ts"]
+  "version": "0.0.0"
 }

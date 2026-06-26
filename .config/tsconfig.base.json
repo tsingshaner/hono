@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
     "composite": true,
-    "useDefineForClassFields": true,
-    "skipLibCheck": true,
-
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
-
-    "strict": true,
-    "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
-    "forceConsistentCasingInFileNames": true
+    "resolveJsonModule": true,
+
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
   }
 }

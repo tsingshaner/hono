@@ -11,9 +11,9 @@
   "license": "ISC",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js",
+      "default": "./dist/client.js"
     }
   },
   "main": "dist/index.js",
@@ -30,9 +30,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "nitro build & tsdown",
     "changeset-version": "changeset version",
     "changeset-publish": "changeset publish",
+    "dev": "nitro dev",
     "format": "biome format . --write",
     "knip": "knip",
     "lint": "biome lint . --write && eslint . --fix",
@@ -40,25 +41,42 @@
     "test": "vitest run",
     "test:cov": "vitest run --coverage"
   },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.3",
+    "@logtape/drizzle-orm": "^2.2.1",
+    "@logtape/hono": "^2.2.1",
+    "@logtape/logtape": "^2.2.1",
+    "@neondatabase/serverless": "^1.1.0",
+    "@qingshaner/utility-hono": "file:../utility/packages/hono",
+    "better-auth": "^1.6.20",
+    "c12": "4.0.0-beta.5",
+    "drizzle-orm": "1.0.0-rc.4-5d5b77c",
+    "hono": "^4.12.27",
+    "jose": "^6.2.3",
+    "pg": "^8.22.0",
+    "valibot": "^1.4.1"
+  },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.15",
+    "@biomejs/biome": "^2.5.1",
     "@changesets/cli": "^2.31.0",
-    "@qingshaner/eslint-config": "^1.1.2",
-    "@types/node": "^25.8.0",
-    "@vitest/coverage-v8": "^4.1.6",
-    "eslint": "^10.4.0",
-    "knip": "^6.14.1",
-    "lint-staged": "^17.0.4",
+    "@qingshaner/eslint-config": "^2.0.0",
+    "@types/node": "^26.0.1",
+    "@vitest/coverage-v8": "^4.1.9",
+    "drizzle-kit": "1.0.0-rc.4-5d5b77c",
+    "eslint": "^10.5.0",
+    "knip": "^6.19.0",
+    "nano-staged": "^1.0.2",
+    "nitro": "3.0.260610-beta",
     "simple-git-hooks": "^2.13.1",
-    "tsdown": "^0.22.0",
+    "tsdown": "^0.22.3",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.9"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged",
+    "pre-commit": "pnpm nano-staged",
     "pre-push": "pnpm test"
   },
-  "lint-staged": {
+  "nano-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
       "pnpm biome lint --write",
       "pnpm eslint --cache --fix"

@@ -1,16 +1,15 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "resolveJsonModule": true,
-
-    "lib": ["ES2023", "DOM"],
-    "types": [],
-
-    "rootDir": "..",
+    "lib": ["ES2025"],
     "paths": {
       "@/*": ["../src/*"]
-    }
+    },
+    "resolveJsonModule": true,
+
+    "rootDir": "..",
+    "target": "ESNext",
+    "types": ["node"]
   },
+  "extends": "./tsconfig.base.json",
   "include": ["../src", "../test"]
 }

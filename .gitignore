@@ -1,14 +1,21 @@
 dist
 cache
-.cache
 coverage
 node_modules
 
-.eslintcache
+.cache
+.data
 .changeset/README.md
+.eslintcache
+.output
+.vercel
 *.tsbuildinfo
 
 .idea
 .vscode/**/*
 !.vscode/settings.json
 !.vscode/extensions.json
+
+config.ts
+.env
+.env.*
