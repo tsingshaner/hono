@@ -3,8 +3,12 @@
     "lib": ["ESNext"],
     "rootDir": "..",
     "target": "ESNext",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@/*": ["../src/*"]
+    },
+    "resolveJsonModule": true
   },
   "extends": "./tsconfig.base.json",
-  "include": ["../*.config.ts", "../*.config.mjs"]
+  "include": ["../*.config.ts", "../*.config.mjs", "../src", "../test"]
 }

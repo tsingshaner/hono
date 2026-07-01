@@ -22,7 +22,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=22.21.0",
     "pnpm": ">=11.0.0"
   },
   "publishConfig": {
@@ -48,13 +48,13 @@
     "@logtape/logtape": "^2.2.1",
     "@neondatabase/serverless": "^1.1.0",
     "@qingshaner/utility-hono": "file:../utility/packages/hono",
-    "better-auth": "^1.6.20",
+    "better-auth": "^1.6.23",
     "c12": "4.0.0-beta.5",
     "drizzle-orm": "1.0.0-rc.4-5d5b77c",
     "hono": "^4.12.27",
     "jose": "^6.2.3",
     "pg": "^8.22.0",
-    "valibot": "^1.4.1"
+    "valibot": "^1.4.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.1",
@@ -63,13 +63,13 @@
     "@types/node": "^26.0.1",
     "@vitest/coverage-v8": "^4.1.9",
     "drizzle-kit": "1.0.0-rc.4-5d5b77c",
-    "eslint": "^10.5.0",
-    "knip": "^6.19.0",
+    "eslint": "^10.6.0",
+    "knip": "^6.23.0",
     "nano-staged": "^1.0.2",
     "nitro": "3.0.260610-beta",
     "simple-git-hooks": "^2.13.1",
     "tsdown": "^0.22.3",
-    "typescript": "^6.0.3",
+    "typescript": "7.0.1-rc",
     "vitest": "^4.1.9"
   },
   "simple-git-hooks": {

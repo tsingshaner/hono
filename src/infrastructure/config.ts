@@ -29,7 +29,13 @@ let $config: v.InferOutput<typeof configSchema>
 
 export const getConfig = async () => {
   if (!$config) {
-    const { config } = await loadConfig({})
+    const {config, layers} = await loadConfig({
+      rcFile: false,
+      dotenv: {
+        env: process.env,
+        fileName: ['.env', '.env.local']
+      }
+    })
 
     const result = v.safeParse(configSchema, config)
     if (!result.success) {

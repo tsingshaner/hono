@@ -4,11 +4,15 @@ export default defineConfig({
   alias: {
     '@': 'src'
   },
+  deps: {
+    alwaysBundle: ['hono/client']
+  },
   dts: {
-    // cjsReexport: true,
-    oxc: false
+    tsgo: {
+      enabled: true
+    }
   },
   entry: 'src/client.ts',
   format: ['esm'],
-  tsconfig: '.config/tsconfig.app.json'
+  tsconfig: 'tsconfig.build.json'
 })

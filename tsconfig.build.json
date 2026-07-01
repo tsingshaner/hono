@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2025"],
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "rootDir": ".",
+    "target": "ESNext",
+    "types": ["node"]
+  },
+  "extends": "./.config/tsconfig.base.json",
+  "include": ["./src/**/*.ts"]
+}
