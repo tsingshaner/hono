@@ -1,7 +1,7 @@
 import { getLogger } from '@logtape/logtape'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { jwt } from 'better-auth/plugins'
+import { bearer, jwt } from 'better-auth/plugins'
 
 import { getConfig } from './config'
 import { getDatabase } from './db'
@@ -63,7 +63,7 @@ export const auth = betterAuth({
       logger[level](message, properties)
     }
   },
-  plugins: [jwt()],
+  plugins: [bearer(), jwt()],
   secret: config.auth.secret,
   socialProviders: {
     github: {

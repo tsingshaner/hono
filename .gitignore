@@ -16,6 +16,6 @@ node_modules
 !.vscode/settings.json
 !.vscode/extensions.json
 
-config.ts
 .env
 .env.*
+!.env.example

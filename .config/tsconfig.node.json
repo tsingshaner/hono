@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "lib": ["ESNext"],
-    "rootDir": "..",
-    "target": "ESNext",
-    "types": ["node"],
     "paths": {
       "@/*": ["../src/*"]
     },
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "rootDir": "..",
+    "target": "ESNext",
+    "types": ["node"]
   },
   "extends": "./tsconfig.base.json",
   "include": ["../*.config.ts", "../*.config.mjs", "../src", "../test"]

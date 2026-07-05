@@ -1,8 +1,12 @@
 import { mkdirSync } from 'node:fs'
 
+import { loadDotenv } from 'c12'
 import { defineConfig } from 'drizzle-kit'
 
-import config from './config'
+const env = await loadDotenv({
+  env: process.env,
+  fileName: ['.env', '.env.local']
+})
 
 type DatabaseConfig =
   | string
@@ -15,7 +19,39 @@ type DatabaseConfig =
       url: string
     }
 
-const database = config.database as DatabaseConfig
+const getEnv = (key: string) => env[key]?.trim()
+
+const requireEnv = (key: string) => {
+  const value = getEnv(key)
+
+  if (!value) {
+    throw new Error(`${key} is required`)
+  }
+
+  return value
+}
+
+const getDatabaseConfig = (): DatabaseConfig => {
+  const driver = getEnv('DATABASE_DRIVER')
+
+  if (driver === 'pglite') {
+    return {
+      dataDir: getEnv('DATABASE_DATA_DIR'),
+      driver
+    }
+  }
+
+  if (driver === 'postgres') {
+    return {
+      driver,
+      url: requireEnv('DATABASE_URL')
+    }
+  }
+
+  return requireEnv('DATABASE_URL')
+}
+
+const database = getDatabaseConfig()
 
 const common = {
   dialect: 'postgresql',

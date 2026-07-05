@@ -15,13 +15,6 @@ const createDatabase = async () => {
   const config = await getConfig()
   const database = config.database
 
-  if (typeof database === 'string') {
-    return postgresDrizzle({
-      connection: database,
-      relations
-    })
-  }
-
   if (database.driver === 'postgres') {
     return postgresDrizzle({
       connection: database.url,
