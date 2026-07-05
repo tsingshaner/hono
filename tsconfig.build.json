@@ -10,5 +10,5 @@
     "types": ["node"]
   },
   "extends": "./.config/tsconfig.base.json",
-  "include": ["./src/**/*.ts"]
+  "include": ["./package.json", "./src/**/*.ts"]
 }

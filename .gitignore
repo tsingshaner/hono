@@ -9,6 +9,7 @@ node_modules
 .eslintcache
 .output
 .vercel
+*.log
 *.tsbuildinfo
 
 .idea

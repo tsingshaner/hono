@@ -1,3 +1,1 @@
-export const permession = async () => {
-
-}
+export const permession = async () => {}

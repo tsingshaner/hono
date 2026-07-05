@@ -2,7 +2,7 @@ import { createWriteStream } from 'node:fs'
 import { mkdir } from 'node:fs/promises'
 import { Writable } from 'node:stream'
 
-import { configure, getConsoleSink, getJsonLinesFormatter, getStreamSink } from '@logtape/logtape'
+import { configure, getConsoleSink, getJsonLinesFormatter, getLogger, getStreamSink } from '@logtape/logtape'
 
 import { name } from '../../package.json' with { type: 'json' }
 
@@ -29,3 +29,5 @@ export const initLogger = async () => {
     }
   })
 }
+
+export const getAppLogger = (category?: string) => getLogger(category ? [name, category] : name)
