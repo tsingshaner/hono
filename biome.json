@@ -4,6 +4,13 @@
   "files": {
     "includes": ["**/*", "!drizzle/**/*.json"]
   },
+  "linter": {
+    "rules": {
+      "style": {
+        "useNamingConvention": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "assist": {

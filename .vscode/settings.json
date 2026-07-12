@@ -34,14 +34,12 @@
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
-
   "eslint.options": {
     "flags": ["unstable_ts_config"]
   },
-
   "files.associations": { "*.json": "jsonc" },
   "js/ts.experimental.useTsgo": true,
-  "prettier.enable": false,
   "js/ts.tsdk.path": "node_modules\\typescript\\lib",
+  "prettier.enable": false,
   "yaml.format.singleQuote": true
 }

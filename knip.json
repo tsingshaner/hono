@@ -1,6 +1,13 @@
 {
-  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "$schema": "node_modules/knip/schema.json",
   "entry": ["src/index.ts", "src/client.ts"],
   "ignore": ["config.ts"],
-  "tags": ["-lintignore"]
+  "tags": ["-lintignore"],
+  "vitest": true,
+  "typescript": true,
+  "tsdown": true,
+  "nitro": true,
+  "node": true,
+  "nano-staged": true,
+  "biome": true
 }

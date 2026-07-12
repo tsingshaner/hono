@@ -1,10 +1,12 @@
 import { getConfig } from './config'
 import { getDatabase } from './db'
-import { initLogger } from './logger'
 
 export const initInfrastructure = async () => {
-  await initLogger()
+  const config = await getConfig()
+  const db = await getDatabase()
 
-  await getConfig()
-  await getDatabase()
+  return {
+    config,
+    db
+  }
 }

@@ -40,8 +40,8 @@ const readConfig = async () => {
 
   const result = v.safeParse(configSchema, config)
 
+  const logger = getAppLogger()
   if (!result.success) {
-    const logger = getAppLogger('config')
     const exception = new Exception({
       cause: new Error(`Invalid config: ${JSON.stringify(v.flatten(result.issues))}`),
       code: 'CONFIG_INVALID',
@@ -53,6 +53,7 @@ const readConfig = async () => {
 
     process.exit(1)
   }
+  logger.info('Config loaded successfully', { config: result.output })
 
   return result.output
 }

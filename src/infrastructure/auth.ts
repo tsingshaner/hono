@@ -1,4 +1,3 @@
-import { getLogger } from '@logtape/logtape'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { bearer, jwt } from 'better-auth/plugins'
@@ -6,6 +5,7 @@ import { bearer, jwt } from 'better-auth/plugins'
 import { getConfig } from './config'
 import { getDatabase } from './db'
 import * as schema from './db/schema'
+import { getAppLogger } from './logger'
 
 // The `jwt` plugin's endpoint types embed a non-portable internal zod type,
 // which breaks `.d.ts` emission for this module (better-auth/better-auth#4250).
@@ -40,7 +40,7 @@ interface AppAuth {
 }
 
 const config = await getConfig()
-const logger = getLogger('better-auth')
+const logger = getAppLogger('better-auth')
 
 export const auth = betterAuth({
   baseURL: config.baseURL,
