@@ -38,7 +38,7 @@ export const usersRouter = new Hono<{ Variables: AppVariables }>()
     return c.json({ user: await createUser(c, input) }, 201)
   })
   .get('/:id', validator('param', userIdSchema), async (c) => {
-    const user = await getUser(c.req.valid('param').id)
+    const user = await getUser(c.var, c.req.valid('param').id)
 
     return user ? c.json({ user }) : c.json({ error: 'user not found' }, 404)
   })
@@ -46,7 +46,7 @@ export const usersRouter = new Hono<{ Variables: AppVariables }>()
     const params = c.req.valid('param')
     const input = c.req.valid('json')
 
-    const user = await updateUser(params.id, input)
+    const user = await updateUser(c.var, params.id, input)
 
     return user ? c.json({ user }) : c.json({ error: 'user not found' }, 404)
   })

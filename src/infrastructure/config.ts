@@ -18,8 +18,8 @@ const configSchema = v.object({
 
   database: v.variant('driver', [
     v.object({
-      driver: v.literal('pglite'),
-      dataDir: v.optional(v.pipe(v.string(), v.nonEmpty()))
+      dataDir: v.optional(v.pipe(v.string(), v.nonEmpty())),
+      driver: v.literal('pglite')
     }),
     v.object({
       driver: v.literal('postgres'),

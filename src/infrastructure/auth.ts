@@ -40,7 +40,7 @@ interface AppAuth {
 }
 
 const config = await getConfig()
-const logger = getAppLogger('better-auth')
+const logger = getAppLogger('auth')
 
 export const auth = betterAuth({
   baseURL: config.baseURL,

@@ -7,6 +7,7 @@ import { createRemoteJWKSet, jwtVerify } from 'jose'
 
 import { auth } from './infrastructure/auth'
 import { getConfig } from './infrastructure/config'
+import { getAppLoggerCategory } from './infrastructure/logger'
 import { type AppEnv, infra, sessionMiddleware } from './middlewares'
 import { usersRouter } from './routers/users'
 
@@ -19,6 +20,7 @@ const app = new Hono<AppEnv>()
   .use(
     '*',
     honoLogger({
+      category: getAppLoggerCategory('hono'),
       context: true,
       format: (c, responseTime) => {
         const metrics = c.get('metric')
@@ -53,12 +55,7 @@ const app = new Hono<AppEnv>()
 
     return c.json({ metrics: '1' })
   })
-  .on(['POST', 'GET'], '/api/auth/*', (c) => {
-    return auth.handler(c.req.raw)
-  })
-  .get('/', (c) => {
-    return c.json({})
-  })
+  .on(['POST', 'GET'], '/api/auth/*', (c) => auth.handler(c.req.raw))
   .route('/api/users', usersRouter)
   .get('/api/me', async (c) => {
     const authorization = c.req.header('authorization')
@@ -79,6 +76,7 @@ const app = new Hono<AppEnv>()
       return c.json({ error: 'invalid token' }, 401)
     }
   })
+  .notFound((c) => c.json({ error: 'not found' }, 405))
 
 showRoutes(app)
 
