@@ -9,7 +9,7 @@ import { auth } from './infrastructure/auth'
 import { getConfig } from './infrastructure/config'
 import { getAppLoggerCategory } from './infrastructure/logger'
 import { type AppEnv, infra, sessionMiddleware } from './middlewares'
-import { usersRouter } from './routers/users'
+import { usersRoute } from './routes/users'
 
 const config = await getConfig()
 const jwks = createRemoteJWKSet(new URL('/api/auth/jwks', config.baseURL))
@@ -56,7 +56,7 @@ const app = new Hono<AppEnv>()
     return c.json({ metrics: '1' })
   })
   .on(['POST', 'GET'], '/api/auth/*', (c) => auth.handler(c.req.raw))
-  .route('/api/users', usersRouter)
+  .route('/api/users', usersRoute)
   .get('/api/me', async (c) => {
     const authorization = c.req.header('authorization')
     const token = authorization?.startsWith('Bearer ') ? authorization.slice(7) : undefined
@@ -76,7 +76,7 @@ const app = new Hono<AppEnv>()
       return c.json({ error: 'invalid token' }, 401)
     }
   })
-  .notFound((c) => c.json({ error: 'not found' }, 405))
+  .notFound((c) => c.json({ error: 'not found' }, 404))
 
 showRoutes(app)
 

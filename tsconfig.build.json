@@ -9,6 +9,6 @@
     "target": "ESNext",
     "types": ["node"]
   },
-  "extends": "./.config/tsconfig.base.json",
+  "extends": "@qingshaner/devtools/tsconfig/base.json",
   "include": ["./package.json", "./src/**/*.ts"]
 }

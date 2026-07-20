@@ -25,6 +25,19 @@ const configSchema = v.object({
       driver: v.literal('postgres'),
       url: v.pipe(v.string(), v.url(), v.nonEmpty())
     })
+  ]),
+
+  store: v.variant('driver', [
+    v.object({
+      base: v.pipe(v.pipe(v.string(), v.nonEmpty())),
+      driver: v.literal('fs-lite')
+    }),
+    v.object({
+      base: v.pipe(v.pipe(v.string(), v.nonEmpty())),
+      driver: v.literal('upstash'),
+      scanCount: v.optional(v.number()),
+      ttl: v.optional(v.number())
+    })
   ])
 })
 

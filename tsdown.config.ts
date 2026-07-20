@@ -5,14 +5,13 @@ export default defineConfig({
     '@': 'src'
   },
   deps: {
-    alwaysBundle: ['hono/client']
+    alwaysBundle: ['hono/client'],
+    onlyBundle: ['hono']
   },
   dts: {
-    tsgo: {
-      enabled: true
-    }
+    tsgo: true
   },
   entry: 'src/client.ts',
   format: ['esm'],
-  tsconfig: 'tsconfig.build.json'
+  tsconfig: 'tsconfig.json'
 })

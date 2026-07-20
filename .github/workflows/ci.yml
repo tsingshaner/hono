@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ '22.22.2' ]
+        node-version: ['22.22.2']
 
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
         run: pnpm i
 
       - name: Lint
-        run: pnpm format && pnpm lint
+        run: pnpm run --parallel '/(check|check:cspell|check:type|knip)/'
 
       - uses: autofix-ci/action@551dded8c6cc8a1054039c8bc0b8b48c51dfc6ef
         with:

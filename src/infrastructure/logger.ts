@@ -23,9 +23,8 @@ const initLogger = async () => {
   await configure({
     contextLocalStorage: new AsyncLocalStorage(),
     loggers: [
-      { category: getAppLoggerCategory('orm'), lowestLevel: 'trace', sinks: ['console'] },
+      { category: getAppLoggerCategory('orm'), lowestLevel: 'trace', sinks: ['console', 'file'] },
       { category: getAppLoggerCategory('hono'), lowestLevel: import.meta.dev ? 'trace' : 'info', sinks: ['console'] },
-      { category: name, lowestLevel: 'trace', sinks: ['console'] },
       { category: getAppLoggerCategory('auth'), lowestLevel: 'debug', sinks: ['console', 'file'] },
       {
         category: ['logtape', 'meta'],

@@ -1,9 +1,9 @@
 {
-  "name": "template",
+  "name": "hono-template",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@11.9.0",
-  "description": "a lib template for typescript",
+  "description": "a template for hono",
   "author": {
     "name": "qingshaner",
     "url": "https://github.com/Jon-a-than"
@@ -30,59 +30,58 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "nitro build & tsdown",
+    "build": "pnpm run --parallel '/^build:.*/'",
+    "build:client": "tsdown",
+    "build:server": "nitro build",
     "changeset-version": "changeset version",
     "changeset-publish": "changeset publish",
+    "check": "biome check . --write",
+    "check:cspell": "cspell . --no-summary --no-progress --gitignore",
+    "check:type": "tsc --noEmit",
     "dev": "nitro dev",
-    "format": "biome format . --write",
     "knip": "knip",
-    "lint": "biome lint . --write && eslint . --fix",
     "prepare": "simple-git-hooks",
     "test": "vitest run",
     "test:cov": "vitest run --coverage"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",
-    "@hono/standard-validator": "^0.2.3",
-    "@logtape/drizzle-orm": "^2.2.3",
-    "@logtape/hono": "^2.2.3",
-    "@logtape/logtape": "^2.2.3",
+    "@logtape/drizzle-orm": "^2.2.4",
+    "@logtape/hono": "^2.2.4",
+    "@logtape/logtape": "^2.2.4",
     "@neondatabase/serverless": "^1.1.0",
-    "@qingshaner/utility-hono": "file:../utility/packages/hono",
+    "@qingshaner/utility-hono": "^0.1.0",
     "better-auth": "^1.6.23",
     "c12": "4.0.0-beta.5",
     "drizzle-orm": "1.0.0-rc.4-5d5b77c",
-    "hono": "^4.12.27",
+    "hono": "^4.12.30",
     "jose": "^6.2.3",
     "pg": "^8.22.0",
+    "unstorage": "^1.17.5",
     "valibot": "^1.4.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.1",
-    "@changesets/cli": "^2.31.0",
-    "@qingshaner/eslint-config": "^2.0.0",
-    "@types/node": "^26.1.0",
-    "@typescript/native-preview": "7.0.0-dev.20260706.1",
-    "@vitest/coverage-v8": "^4.1.9",
+    "@biomejs/biome": "^2.5.4",
+    "@changesets/cli": "^2.31.1",
+    "@qingshaner/devtools": "^0.0.3",
+    "@types/node": "^26.1.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "cspell": "^10.0.1",
     "drizzle-kit": "1.0.0-rc.4-5d5b77c",
-    "eslint": "^10.6.0",
-    "knip": "^6.24.0",
+    "knip": "^6.27.0",
     "nano-staged": "^1.0.2",
     "nitro": "3.0.260610-beta",
     "simple-git-hooks": "^2.13.1",
-    "tsdown": "^0.22.3",
-    "typescript": "7.0.1-rc",
-    "vitest": "^4.1.9"
+    "tsdown": "^0.22.8",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm nano-staged",
-    "pre-push": "pnpm test"
+    "pre-push": "pnpm run --parallel '/(test|check|check:cspell|check:type|knip)/'"
   },
   "nano-staged": {
-    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
-      "pnpm biome lint --write",
-      "pnpm eslint --cache --fix"
-    ],
-    "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome format --write"
+    "*": "cspell --no-summary --no-progress --gitignore --no-must-find-files --file-list",
+    "*.{json,jsonc,js,jsx,cjs,mjs,ts,tsx,cts,mts,html,svg,css,vue}": "pnpm biome check --fix --files-ignore-unknown=true --no-errors-on-unmatched"
   }
 }

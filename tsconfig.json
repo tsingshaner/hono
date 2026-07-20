@@ -1,7 +1,14 @@
 {
-  "references": [
-    {
-      "path": ".config/tsconfig.node.json"
-    }
-  ]
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
+    "rootDir": ".",
+    "target": "ESNext",
+    "types": ["node"]
+  },
+  "extends": "@qingshaner/devtools/tsconfig/base.json",
+  "include": ["./*.config.ts", "./*.config.mjs", "./src"]
 }

@@ -37,4 +37,3 @@ export const wrapTime = <T>(
 
 export { sessionMiddleware } from './auth'
 export { infra } from './infra'
-export { validator } from './validator'

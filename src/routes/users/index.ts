@@ -1,8 +1,9 @@
+import { validator } from '@qingshaner/utility-hono/middlewares'
 import { Hono } from 'hono'
 
 import type { Context } from 'hono'
 
-import { type AppVariables, validator } from '@/middlewares'
+import type { AppVariables } from '@/middlewares'
 
 import { createUserSchema, updateUserSchema, userIdSchema } from './schema'
 import { createUser, deleteUser, getUser, listUsers, updateUser } from './services'
@@ -15,7 +16,7 @@ const requireUser = (c: Context<{ Variables: AppVariables }>) => {
   return c.json({ error: 'unauthorized' }, 401)
 }
 
-export const usersRouter = new Hono<{ Variables: AppVariables }>()
+export const usersRoute = new Hono<{ Variables: AppVariables }>()
   .use('*', async (c, next) => {
     const response = requireUser(c)
 

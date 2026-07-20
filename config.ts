@@ -11,5 +11,12 @@ export default {
     dataDir: process.env.DATABASE_DATA_DIR,
     driver: process.env.DATABASE_DRIVER,
     url: process.env.DATABASE_URL
+  },
+
+  store: {
+    base: process.env.STORE_UPSTASH_BASE,
+    driver: process.env.STORE_DRIVER,
+    scanCount: process.env.STORE_UPSTASH_SCAN_COUNT,
+    ttl: process.env.STORE_UPSTASH_TTL
   }
 }

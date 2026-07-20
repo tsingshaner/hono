@@ -1,13 +1,13 @@
 {
   "$schema": "node_modules/knip/schema.json",
+  "biome": true,
   "entry": ["src/index.ts", "src/client.ts"],
   "ignore": ["config.ts"],
-  "tags": ["-lintignore"],
-  "vitest": true,
-  "typescript": true,
-  "tsdown": true,
+  "nano-staged": true,
   "nitro": true,
   "node": true,
-  "nano-staged": true,
-  "biome": true
+  "tags": ["-lintignore"],
+  "tsdown": true,
+  "typescript": true,
+  "vitest": true
 }
