@@ -67,7 +67,7 @@
     "@types/node": "^26.1.1",
     "@vitest/coverage-v8": "^4.1.10",
     "cspell": "^10.0.1",
-    "drizzle-kit": "1.0.0-rc.4-5d5b77c",
+    "drizzle-kit": "1.0.0-rc.4-273829f",
     "knip": "^6.27.0",
     "nano-staged": "^1.0.2",
     "nitro": "3.0.260610-beta",
