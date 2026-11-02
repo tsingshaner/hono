@@ -66,9 +66,6 @@ export const auth = betterAuth({
   plugins: [bearer(), jwt()],
   secret: config.auth.secret,
   socialProviders: {
-    github: {
-      clientId: config.auth.github.clientId,
-      clientSecret: config.auth.github.clientSecret
-    }
+    github: config.auth.github
   }
 }) as unknown as AppAuth

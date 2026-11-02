@@ -1,34 +1,16 @@
 import { validator } from '@qingshaner/utility-hono/middlewares'
 import { Hono } from 'hono'
 
-import type { Context } from 'hono'
+import { requireUser } from '@/middlewares/auth'
 
 import type { AppVariables } from '@/middlewares'
 
 import { createUserSchema, updateUserSchema, userIdSchema } from './schema'
 import { createUser, deleteUser, getUser, listUsers, updateUser } from './services'
 
-const requireUser = (c: Context<{ Variables: AppVariables }>) => {
-  if (c.get('user')) {
-    return null
-  }
-
-  return c.json({ error: 'unauthorized' }, 401)
-}
-
 export const usersRoute = new Hono<{ Variables: AppVariables }>()
-  .use('*', async (c, next) => {
-    const response = requireUser(c)
-
-    if (response) {
-      return response
-    }
-
-    await next()
-  })
-  .get('/', async (c) => {
-    return c.json({ users: await listUsers() })
-  })
+  .use(requireUser)
+  .get('/', async (c) => c.json({ users: await listUsers() }))
   .post('/', validator('json', createUserSchema), async (c) => {
     const input = c.req.valid('json')
 

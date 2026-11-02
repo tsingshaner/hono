@@ -5,6 +5,8 @@ import { showRoutes } from 'hono/dev'
 import { setMetric, startTime, timing, wrapTime } from 'hono/timing'
 import { createRemoteJWKSet, jwtVerify } from 'jose'
 
+import type { HTTPResponseError } from 'hono/types'
+
 import { auth } from './infrastructure/auth'
 import { getConfig } from './infrastructure/config'
 import { getAppLoggerCategory } from './infrastructure/logger'
@@ -13,6 +15,8 @@ import { usersRoute } from './routes/users'
 
 const config = await getConfig()
 const jwks = createRemoteJWKSet(new URL('/api/auth/jwks', config.baseURL))
+const isHTTPResponseError = (err: unknown): err is HTTPResponseError =>
+  Error.isError(err) && typeof (err as HTTPResponseError).getResponse === 'function'
 
 const app = new Hono<AppEnv>()
   .use('*', timing({ totalDescription: '' }))
@@ -76,7 +80,10 @@ const app = new Hono<AppEnv>()
       return c.json({ error: 'invalid token' }, 401)
     }
   })
-  .notFound((c) => c.json({ error: 'not found' }, 404))
+  .notFound((c) => c.json({ message: 'Route not found' }, 404))
+  .onError((err, c) =>
+    isHTTPResponseError(err) ? err.getResponse() : c.json({ message: `[${err.name}] ${err.message}` }, 500)
+  )
 
 showRoutes(app)
 

@@ -19,3 +19,11 @@ export const sessionMiddleware = createMiddleware<{
 
   await next()
 })
+
+export const requireUser = createMiddleware<{ Variables: AuthVariables }>(async (c, next) => {
+  if (!c.get('user')) {
+    return c.json({ error: 'unauthorized' }, 401)
+  }
+
+  await next()
+})

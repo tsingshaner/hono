@@ -14,8 +14,9 @@ import {
 
 import { name } from '../../package.json' with { type: 'json' }
 
-export const getAppLoggerCategory = (category?: 'orm' | 'hono' | 'auth' | (string & {})) =>
-  category ? [name, category] : name
+type Category = 'orm' | 'hono' | 'auth' | (string & {})
+
+export const getAppLoggerCategory = (category?: Category) => (category ? [name, category] : name)
 
 const initLogger = async () => {
   await mkdir('logs', { recursive: true })
@@ -45,4 +46,4 @@ const initLogger = async () => {
 
 await initLogger()
 
-export const getAppLogger = (category?: string) => getLogger(getAppLoggerCategory(category))
+export const getAppLogger = (category?: Category) => getLogger(getAppLoggerCategory(category))
